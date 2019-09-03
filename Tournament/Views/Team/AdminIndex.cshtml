@@ -1,0 +1,78 @@
+﻿@model IEnumerable<Tournament.Models.Team>
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Index</h2>
+<button class="btn btn-link">@Html.ActionLink("new", "Create", "Team")</button>
+<table id="teams-table" class="table table-hover table-bordered">
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Edit</th>
+            <th>Delete</th>
+        </tr>
+    </thead>
+
+    <tbody>
+        @*@foreach (var team in Model)
+        {
+            <tr>
+                <td>@Html.ActionLink(team.Name, "Details", "Team", new { id = team.Id }, new { })</td>
+                <td>@Html.ActionLink("Edit", "Edit", "Team", new { id = team.Id }, new { })</td>
+                <td><button data-team-id="@team.Id" class="btn-link js-delete">Delete</button></td>
+            </tr>
+        }*@
+    </tbody>
+</table>
+
+@section scripts
+{
+    <script>
+        $(document).ready(function () {
+            var table = $("#teams-table").DataTable({
+                ajax: {
+                    url: "/api/team",
+                    dataSrc: ""
+                },
+                columns: [
+                    {
+                        data: "name",
+                        render: function (data, type, team) {
+                            return "<a href='/team/details/" + team.id + "'>" + team.name + "</a>";
+                        }
+                    },
+                    {
+                        data: "name",
+                        render: function (data, type, team) {
+                            return "<a href='/team/edit/" + team.id + "'>Edit</a>";
+                        }
+                    },
+                    {
+                        data: "id",
+                        render: function (data) {
+                            return "<button class='btn-link js-delete' data-team-id=" + data + ">Delete</button>";
+                        }
+                    }
+                ]
+            });
+            $("#teams-table").on("click",".js-delete", function () {
+                var button = $(this);
+
+                bootbox.confirm("Вы уверены что хотите распустить/удалить эту команду?", function (result) {
+                    if (result) {
+                        $.ajax({
+                        url: "/api/team/" + button.attr("data-team-id"),
+                        method: "DELETE",
+                        success: function () {
+                            table.row(button.parents("tr")).remove().draw();
+                        }
+                    });
+                    }
+                });
+            });
+        });
+    </script>
+}
+

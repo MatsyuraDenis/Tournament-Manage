@@ -1,0 +1,31 @@
+﻿@model Tournament.Models.Dto.GameDto
+@{
+    ViewBag.Title = "GameForm";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>GameForm</h2>
+@using (Html.BeginForm("Save", "Game"))
+{
+    @Model.LeftTeamName
+    <div class="form-group">
+        @Html.TextBoxFor(g => g.LeftTeamScore, new { @class = "form-control number" })
+        @Html.ValidationMessageFor(g => g.LeftTeamScore)
+    </div>
+
+    @Model.RightTeamName
+    <div class="form-group">
+        @Html.TextBoxFor(g => g.RightTeamScore, new { @class = "form-control number" })
+        @Html.ValidationMessageFor(g => g.RightTeamScore)
+    </div>
+    
+    @Html.HiddenFor(g => g.Id)
+    @Html.AntiForgeryToken();
+    <button type="submit">Save</button>
+}
+
+@section scripts
+{
+    @Scripts.Render("~/bundles/jqueryval")
+    @Scripts.Render("~/bundles/verification")
+}

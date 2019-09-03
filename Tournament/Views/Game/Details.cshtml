@@ -1,0 +1,25 @@
+﻿@model Tournament.Models.GameModels.ReturnGameBindingModel
+
+@{
+    ViewBag.Title = "Game";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div>
+    @Model.TournamentName
+    @Model.Round
+</div>
+
+<div>
+    <table>
+        <tr>
+            <td>@Model.LeftTeamName</td>
+            <td>@Model.LeftTeamScore</td>
+            <td>@Model.RightTeamScore</td>
+            <td>@Model.RightTeamName</td>
+        </tr>
+    </table>
+</div>
+<p>
+    @Html.ActionLink("Back to List", "Index")
+</p>

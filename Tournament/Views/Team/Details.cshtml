@@ -1,0 +1,28 @@
+﻿@model Tournament.Models.Team
+@using Tournament.Models.Helpers
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Details</h2>
+<p>Id: @Model.Id</p>
+<p>Name: @Model.Name</p>
+
+@if (Model.IsExist)
+{
+    <p>Exist</p>
+}
+else
+{
+    <p>Do not Exist</p>
+}
+
+
+@if (User.IsInRole(RoleHelper.Admin))
+{
+    <button>@Html.ActionLink("Edit", "Edit", "Team", new { id = Model.Id }, new { })</button>
+    <button>@Html.ActionLink("Delete", "Delete", "Team", new { id = Model.Id }, new { })</button>
+}
+
+

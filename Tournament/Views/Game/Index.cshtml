@@ -1,0 +1,32 @@
+﻿@model IEnumerable<Tournament.Models.Game>
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Index</h2>
+<table>
+    <thead>
+    <tr>
+        <th>TeamA</th>
+        <th>TeamAScore</th>
+        <th>TeamBScore</th>
+        <th>TeamB</th>
+        <th>Details</th>
+    </tr>
+    </thead>
+    
+    <tbody>
+    @foreach (var game in Model)
+    {
+        <tr>
+            <td>@game.GetLeftTeamName()</td>
+            <td>@game.TeamAScore</td>
+            <td>@game.TeamBScore</td>
+            <td>@game.GetRightTeamName()</td>
+            <td>@Html.ActionLink("Details", "Details", new{id = game.Id})</td>
+        </tr>
+    }
+    </tbody>
+</table>
+

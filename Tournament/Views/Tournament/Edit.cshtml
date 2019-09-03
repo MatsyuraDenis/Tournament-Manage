@@ -1,0 +1,77 @@
+﻿@model Tournament.Models.TournamentTable
+@{
+    ViewBag.Title = "Edit";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>@Model.Name</h2>
+
+
+
+<table class="table table-bordered table-hover">
+    <thead>
+        <tr>
+            <th>Team A</th>
+            <th>Team A Score</th>
+            <th>Team B Score</th>
+            <th>Team B </th>
+            <th>Edit</th>
+        </tr>
+    </thead>
+
+    <tbody>
+        @foreach (var game in Model.Games)
+        {
+            <tr>
+                <td>@game.Teams[0].Name</td>
+                <td>@game.TeamAScore</td>
+                <td>@game.TeamBScore</td>
+                <td>@game.Teams[1].Name</td>
+                <td>@Html.ActionLink("Edit", "Edit", "Game", new { id = game.Id }, new { })</td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<table class="table table-bordered table-hover">
+    <thead>
+        <tr>
+            <th>Team</th>
+            <th>Wins</th>
+            <th>Draws</th>
+            <th>Looses</th>
+            <th>Scored</th>
+            <th>Missed</th>
+            <th>Points</th>
+        </tr>
+    </thead>
+
+    <tbody>
+        @foreach (var statistic in Model.Statistics)
+        {
+            <tr>
+                <th>
+                    @statistic.TeamName
+                </th>
+                <th>@statistic.Win</th>
+                <th>@statistic.Draw</th>
+                <th>@statistic.Looses</th>
+                <th>@statistic.Scored</th>
+                <th>@statistic.Missed</th>
+                <th>@statistic.Points</th>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<ul>
+    @Html.ActionLink("Delete", "Delete", "Tournament", new { id = Model.Id }, new { })
+
+    <br />
+    Teams:
+    @foreach (var team in Model.Teams)
+    {
+        <li>@team.Name</li>
+    }
+
+</ul>

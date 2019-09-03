@@ -1,0 +1,25 @@
+﻿@model Tournament.Models.Dto.TeamDto
+@{
+    ViewBag.Title = "TeamForm";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>TeamForm</h2>
+@using (Html.BeginForm("Save", "Team"))
+{
+    <div class="form-group">
+        @Html.LabelFor(t => t.Name)
+        @Html.TextBoxFor(t => t.Name, new { @class = "form-control" })
+        @Html.ValidationMessageFor(t=>t.Name)
+    </div>
+
+    @Html.HiddenFor(t=>t.Id)
+    @Html.AntiForgeryToken()
+    <button type="submit" class="btn bg-primary">Save</button>
+}
+
+
+@section scripts{
+    @*for client-side validation*@
+    @Scripts.Render("~/bundles/jqueryval");
+}

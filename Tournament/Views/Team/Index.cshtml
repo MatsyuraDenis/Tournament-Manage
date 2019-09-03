@@ -1,0 +1,45 @@
+﻿@model IEnumerable<Tournament.Models.Team>
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Index</h2>
+<table id="teams-table" class="table table-hover table-bordered">
+    <thead>
+        <tr>
+            <th>Name</th>
+        </tr>
+    </thead>
+
+    <tbody>
+    </tbody>
+</table>
+
+
+@section scripts
+{
+    <script>
+        $(document).ready(function () {
+            $("#teams-table").DataTable({
+                ajax: {
+                    url: "/api/team",
+                    dataSrc: ""
+                },
+                columns: [
+                    {
+                        data: "name",
+                        render: function (data, type, team) {
+                            return "<a href='/team/details/" + team.id + "'>" + team.name + "</a>";
+                        }
+                    }
+                ]
+            });
+        });
+    </script>
+}
+
+
+
+
+

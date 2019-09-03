@@ -1,0 +1,25 @@
+﻿@model IEnumerable<Tournament.Models.TournamentTable>
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Index</h2>
+<table class="table table-bordered table-hover">
+    <thead>
+    <tr>
+        <th>Name</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    @foreach (var tournament in Model)
+    {
+        <tr>
+            <td>@Html.ActionLink(tournament.Name, "Details", "Tournament", new{id = tournament.Id}, new{})</td>
+        </tr>
+    }
+    </tbody>
+</table>
+
+
